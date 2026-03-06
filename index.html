@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Buenos Días! UNAD</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #FFD54F;
+    --orange: #FF8A65;
+    --pink: #F06292;
+    --light: #FFF9F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FFF176 0%, #FFD54F 30%, #FF8A65 65%, #F06292 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    overflow: hidden;
+  }
+
+  /* Floating background elements */
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.12;
+    animation: drift linear infinite;
+  }
+
+  @keyframes drift {
+    from { transform: translateY(110vh) rotate(0deg); }
+    to   { transform: translateY(-20vh) rotate(360deg); }
+  }
+
+  .float-icon {
+    position: absolute;
+    font-size: 1.6rem;
+    animation: floatIcon ease-in-out infinite;
+    opacity: 0.75;
+  }
+
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50%       { transform: translateY(-16px) rotate(5deg); }
+  }
+
+  /* Card */
+  .card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.94);
+    border-radius: 40px;
+    padding: 44px 56px 40px;
+    max-width: 560px;
+    width: 93%;
+    text-align: center;
+    box-shadow:
+      0 24px 70px rgba(240,98,146,0.22),
+      0 4px 18px rgba(0,0,0,0.07),
+      inset 0 1px 0 rgba(255,255,255,0.9);
+    animation: popIn 0.75s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  @keyframes popIn {
+    from { opacity:0; transform: scale(0.65) translateY(40px); }
+    to   { opacity:1; transform: scale(1)    translateY(0); }
+  }
+
+  /* Top chip */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, var(--orange), var(--pink));
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    padding: 5px 16px;
+    border-radius: 99px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 10px rgba(240,98,146,0.3);
+    animation: popIn 0.75s 0.2s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .chip .dot {
+    width: 7px; height: 7px;
+    background: #FFD54F;
+    border-radius: 50%;
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  /* Sun */
+  .sun {
+    font-size: 4rem;
+    display: block;
+    margin: 0 auto 10px;
+    animation: sunPulse 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 14px #FFD54F);
+  }
+  @keyframes sunPulse {
+    0%,100% { transform: scale(1)   rotate(-5deg); }
+    50%      { transform: scale(1.1) rotate(5deg);  }
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.8rem;
+    color: var(--pink);
+    line-height: 1.05;
+    text-shadow: 3px 3px 0 rgba(240,98,146,0.12);
+    animation: popIn 0.7s 0.1s both;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--orange);
+    margin: 6px 0 18px;
+    letter-spacing: 0.02em;
+  }
+
+  .divider {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--yellow), var(--pink), transparent);
+    border-radius: 99px;
+    margin: 0 auto 20px;
+    width: 75%;
+  }
+
+  /* Message */
+  .message {
+    font-size: 1rem;
+    color: #5a5a5a;
+    line-height: 1.75;
+    margin-bottom: 26px;
+  }
+  .message strong { color: var(--pink); }
+  .message em     { color: var(--orange); font-style: normal; font-weight: 700; }
+
+  /* Badges */
+  .badges {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .badge {
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    padding: 7px 16px;
+    border-radius: 99px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    animation: badgePop 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  .badge:nth-child(1) { background: linear-gradient(135deg,#FFD54F,#FF8A65); animation: badgePop 0.6s 0.4s cubic-bezier(0.34,1.56,0.64,1) both, bounce 2s 1s ease-in-out infinite; }
+  .badge:nth-child(2) { background: linear-gradient(135deg,#F06292,#CE93D8); animation: badgePop 0.6s 0.55s cubic-bezier(0.34,1.56,0.64,1) both, bounce 2s 1.3s ease-in-out infinite; }
+  .badge:nth-child(3) { background: linear-gradient(135deg,#4FC3F7,#4DD0E1); animation: badgePop 0.6s 0.7s cubic-bezier(0.34,1.56,0.64,1) both, bounce 2s 1.6s ease-in-out infinite; }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-7px); }
+  }
+
+  @keyframes badgePop {
+    from { opacity:0; transform: scale(0.5); }
+    to   { opacity:1; transform: scale(1); }
+  }
+
+  /* Footer */
+  .footer-text {
+    font-size: 0.78rem;
+    color: #bbb;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .footer-text span { color: var(--pink); }
+</style>
+</head>
+<body>
+
+<div class="bg-layer" id="bg"></div>
+
+<div class="card">
+  <div class="chip"><span class="dot"></span> Pensamiento Lógico y Matemático</div>
+
+  <span class="sun">☀️</span>
+  <h1>¡Buenos días!</h1>
+  <p class="subtitle">Conectados desde cualquier lugar 🌐</p>
+
+  <div class="divider"></div>
+
+  <p class="message">
+    Aunque estemos en distintos rincones del país,<br>
+    hoy <strong>aprendemos juntos</strong>. 💛<br><br>
+    Traigan su mejor energía, su <em>curiosidad</em> y sus ganas —<br>
+    ¡el conocimiento no tiene fronteras!
+  </p>
+
+  <div class="badges">
+    <span class="badge">📡 Conectados</span>
+    <span class="badge">💡 Aprendiendo</span>
+    <span class="badge">🚀 Avanzando</span>
+  </div>
+
+  <p class="footer-text">Pensamiento Lógico y Matemático</p>
+</div>
+
+<script>
+  // Floating background bubbles
+  const bg = document.getElementById('bg');
+  const colors = ['#FFD54F','#FF8A65','#F06292','#CE93D8','#4FC3F7'];
+  for (let i = 0; i < 10; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const size = 60 + Math.random() * 140;
+    b.style.cssText = `
+      width:${size}px; height:${size}px;
+      background:${colors[i % colors.length]};
+      left:${Math.random()*100}%;
+      animation-duration:${10 + Math.random()*14}s;
+      animation-delay:-${Math.random()*12}s;
+    `;
+    bg.appendChild(b);
+  }
+
+  // Floating icons representing virtual learning
+  const icons = ['📚','💻','🌍','⭐','✏️','🎓','📡','🌸','✨','🦋'];
+  for (let i = 0; i < 14; i++) {
+    const el = document.createElement('div');
+    el.className = 'float-icon';
+    el.textContent = icons[i % icons.length];
+    el.style.cssText = `
+      left:${Math.random()*95}%;
+      top:${Math.random()*95}%;
+      animation-duration:${3 + Math.random()*3}s;
+      animation-delay:${Math.random()*4}s;
+      font-size:${1.1 + Math.random()*1}rem;
+    `;
+    bg.appendChild(el);
+  }
+</script>
+</body>
+</html>
